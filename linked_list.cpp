@@ -5,11 +5,15 @@
 
 
 utec::first::linked_list_t::linked_list_t(const utec::linked_list_t &other) {
-
+    for (auto i = 0; i < other.size_; i++)
+        push_back(other.item(i));
 }
 
 utec::linked_list_t &utec::first::linked_list_t::operator=(const utec::linked_list_t &other) {
-    return *this;
+    if (this == &other) return *this;
+    for (auto i = 0; i < other.size_; i++) {
+        push_back(other.item(i));
+    }
 }
 /*
 utec::first::linked_list_t::linked_list_t(utec::linked_list_t &&other) noexcept {
@@ -22,7 +26,12 @@ utec::linked_list_t &utec::first::linked_list_t::operator=(utec::linked_list_t &
 }
 */
 utec::first::linked_list_t::~linked_list_t() {
-
+    auto actual = head_;
+    while (size_--) {
+        actual = actual->next_;
+        delete actual;
+    }
+    head_ = tail_ = nullptr;
 }
 
 void utec::first::linked_list_t::push_front(int value) {
@@ -37,13 +46,8 @@ void utec::first::linked_list_t::push_back(int value) {
         if (tail_ == nullptr) tail_ = head_;
     }
     else {
-        tail_ = new node_t{value, nullptr};
-        auto actual = head_;
-        auto i = size_-1;
-        while (i--) {
-            actual = actual->next_;
-        }
-        actual->next_ = tail_;
+        tail_->next_ = new node_t{value, nullptr};
+        tail_ = tail_->next_;
     }
     size_++;
 }
