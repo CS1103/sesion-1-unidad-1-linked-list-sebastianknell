@@ -39,9 +39,8 @@ void utec::first::linked_list_t::push_back(int value) {
         tail_ = new node_t{value, nullptr};
         auto actual = head_;
         auto i = size_-1;
-        while (i) {
+        while (i--) {
             actual = actual->next_;
-            i--;
         }
         actual->next_ = tail_;
     }
@@ -49,7 +48,15 @@ void utec::first::linked_list_t::push_back(int value) {
 }
 
 void utec::first::linked_list_t::insert(size_t index, int value) {
-
+    if (head_ == nullptr) {
+        head_ = new node_t{value, nullptr};
+        if (tail_ == nullptr) tail_ = head_;
+    } else {
+        auto actual = head_;
+        while (index-- > 1) actual = actual->next_;
+        actual->next_ = new node_t{value, actual->next_};
+    }
+    size_++;
 }
 
 void utec::first::linked_list_t::pop_front() {
