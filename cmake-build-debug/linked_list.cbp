@@ -80,6 +80,12 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/Users/sebastianknell/Documents/code/POO 2/linked-list/linked_list.cpp">
+			<Option target="linked_list"/>
+		</Unit>
+		<Unit filename="/Users/sebastianknell/Documents/code/POO 2/linked-list/linked_list.h">
+			<Option target="linked_list"/>
+		</Unit>
 		<Unit filename="/Users/sebastianknell/Documents/code/POO 2/linked-list/main.cpp">
 			<Option target="linked_list"/>
 		</Unit>
