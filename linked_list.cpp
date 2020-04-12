@@ -35,7 +35,8 @@ void utec::first::linked_list_t::push_back(int value) {
     if (head_ == nullptr) {
         head_ = new node_t{value, nullptr};
         if (tail_ == nullptr) tail_ = head_;
-    } else {
+    }
+    else {
         tail_ = new node_t{value, nullptr};
         auto actual = head_;
         auto i = size_-1;
@@ -51,7 +52,8 @@ void utec::first::linked_list_t::insert(size_t index, int value) {
     if (head_ == nullptr) {
         head_ = new node_t{value, nullptr};
         if (tail_ == nullptr) tail_ = head_;
-    } else {
+    }
+    else {
         auto actual = head_;
         while (index-- > 1) actual = actual->next_;
         actual->next_ = new node_t{value, actual->next_};
@@ -74,11 +76,36 @@ void utec::first::linked_list_t::pop_front() {
 }
 
 void utec::first::linked_list_t::pop_back() {
-
+    if (head_ == tail_) {
+        delete head_;
+        head_ = tail_ = nullptr;
+        size_ = 0;
+    }
+    else {
+        auto actual = head_;
+        auto i = 0;
+        while (i++ < size_ - 1)
+            actual = actual->next_;
+        tail_ = actual;
+        delete actual->next_;
+        size_--;
+    }
 }
 
 void utec::first::linked_list_t::erase(size_t index) {
-
+    if (head_ == tail_) {
+        delete head_;
+        head_ = tail_ = nullptr;
+        size_ = 0;
+    }
+    else {
+        auto actual = head_;
+        while (index-- > 1) actual = actual->next_;
+        auto to_erase = actual->next_;
+        actual->next_ = actual->next_->next_;
+        delete to_erase;
+    }
+    size_--;
 }
 
 int &utec::first::linked_list_t::item(size_t index) {
